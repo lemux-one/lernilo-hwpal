@@ -1,5 +1,10 @@
-export function h(tag: any, props: any, ...children: any[]) {
-    console.log("h", { tag, props, children });
+import { isBrowser } from "./utils";
+
+function h(tag: any, props: any, ...children: any[]) {
+    if (isBrowser()) {
+        throw new Error("Unable to render JSX to DOM");
+    }
+
     if (typeof tag === "function") {
         return tag({ ...props, children });
     }
@@ -9,3 +14,5 @@ export function h(tag: any, props: any, ...children: any[]) {
             .join(" ")
     }>${(children ?? []).join("\n")}</${tag}>`;
 }
+
+export { h };

@@ -27,7 +27,7 @@ interface ServerParams {
     routes: Route[];
 }
 
-export function start({ port, routes }: ServerParams) {
+function start({ port, routes }: ServerParams) {
     if (isBlank(routes)) {
         console.log("No routes given...");
     }
@@ -44,3 +44,5 @@ export function start({ port, routes }: ServerParams) {
         console.log(`Server listening on port ${port}`);
     });
 }
+
+export { start, Route }
