@@ -1,0 +1,17 @@
+{
+  "name": "lernilo-hwpal",
+  "version": "1.0.0",
+  "description": "Handy homework pal",
+  "scripts": {
+    "tsw": "pnpm tsc --watch",
+    "nodew": "node --watch ./out/server/index.js",
+    "bundle": "rm -rf ./dist/* && pnpm esbuild ./out/server/index.js --minify --bundle --outfile=./dist/server.js --platform=node"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "esbuild": "^0.24.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  }
+}
