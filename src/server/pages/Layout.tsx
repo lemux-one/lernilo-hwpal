@@ -10,7 +10,7 @@ function Layout(props: any) {
 
       <body>
         {props.children}
-        <script src="/assets/index.js"></script>
+        <script src="/assets/index.bundle.js"></script>
       </body>
     </html>
   );

@@ -5,7 +5,7 @@ import { Home } from "./pages/Home";
 import { readFile } from "node:fs";
 
 const MIME_TYPES: Record<string, string> = {
-  ".js": "text/javascript",
+  js: "text/javascript",
 };
 
 const ASSETS_PREFIX = "/assets/";
@@ -17,18 +17,15 @@ const routes: Route[] = [
       return isAssetPath;
     },
     handler: ({ req, res }) => {
-      const lastDot = req.url?.lastIndexOf(".");
-      const ext = req.url?.slice(lastDot) ?? "";
+      const lastDot = req.url?.lastIndexOf(".") ?? -1;
+      const ext = req.url?.slice(lastDot + 1) ?? "";
       if (!ext) {
         notFound(res);
         return;
       }
       const relativePath = req.url?.slice(ASSETS_PREFIX.length);
       console.log({ ext, relativePath, dir: __dirname });
-      const path =
-        ext === ".js"
-          ? __dirname + `/../client/${relativePath}`
-          : __dirname + `/../client/assets/${relativePath}`;
+      const path = __dirname + `/../client/${ext}/${relativePath}`;
       readFile(path, (err, data) => {
         if (err) {
           res.writeHead(500, { "Content-Type": "text/plain" });
@@ -53,6 +50,6 @@ const routes: Route[] = [
   },
 ];
 
-const port = 3333;
+const port = process.env.PORT ? Number(process.env.PORT) : 3333;
 
 start({ port, routes });
