@@ -5,7 +5,11 @@
   "scripts": {
     "tsw": "pnpm tsc --watch",
     "nodew": "node --watch ./out/server/index.js",
-    "bundle": "rm -rf ./dist/* && pnpm esbuild ./out/server/index.js --minify --bundle --outfile=./dist/server.js --platform=node"
+    "bundlew": "pnpm esbuild ./out/client/js/index.js --watch --bundle --outfile=./out/client/js/index.bundle.js --platform=browser",
+    "clean": "rm -rf ./dist/*",
+    "bundle:server": "pnpm esbuild ./out/server/index.js --minify --bundle --outfile=./dist/server/index.js --platform=node",
+    "bundle:client": "pnpm esbuild ./out/client/js/index.js --minify --bundle --outfile=./dist/client/js/index.bundle.js --platform=browser",
+    "dist": "pnpm clean && pnpm bundle:server && pnpm bundle:client"
   },
   "license": "MIT",
   "devDependencies": {
