@@ -1,3 +1,3 @@
 #!/bin/sh
-cd /home/protected/dist
+cd ./dist
 node ./server/index.js
