@@ -8,7 +8,10 @@ function Layout(props: any) {
         <title>Lernilo</title>
       </head>
 
-      <body>{props.children}</body>
+      <body>
+        {props.children}
+        <script src="/assets/index.js"></script>
+      </body>
     </html>
   );
 }
