@@ -5,12 +5,15 @@
   "scripts": {
     "tsw": "pnpm tsc --watch",
     "nodew": "node --watch ./out/server/index.js",
-    "bundlew": "pnpm esbuild ./out/client/js/index.js --watch --bundle --outfile=./out/client/js/index.bundle.js --platform=browser",
-    "clean": "rm -rf ./dist/*",
+    "nodew:bundle": "node --watch ./out/server/index.bundle.js",
+    "bundlew:client": "pnpm esbuild ./out/client/js/index.js --watch --bundle --outfile=./out/client/js/index.bundle.js --platform=browser",
+    "bundlew:server": "pnpm esbuild ./out/server/index.js --watch --bundle --outfile=./out/server/index.bundle.js --platform=node",
+    "clean": "rm -rf ./dist/* && rm -rf ./out/*",
     "bundle:server": "pnpm esbuild ./out/server/index.js --minify --bundle --outfile=./dist/server/index.js --platform=node",
     "bundle:client": "pnpm esbuild ./out/client/js/index.js --minify --bundle --outfile=./dist/client/js/index.bundle.js --platform=browser",
     "dist": "pnpm clean && pnpm bundle:server && pnpm bundle:client",
-    "start": "pnpm tsc && pnpm tsc-alias && pnpm dist && node dist/server/index.js"
+    "start": "pnpm tsc && pnpm tsc-alias && pnpm dist && node dist/server/index.js",
+    "dev": "pnpm clean && pnpm tsc && (pnpm concurrently \"pnpm tsw\" \"pnpm tsc-alias -w\" \"pnpm bundlew:client\" \"pnpm bundlew:server\" \"pnpm nodew:bundle\")"
   },
   "license": "MIT",
   "devDependencies": {
