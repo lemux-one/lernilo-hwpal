@@ -12,7 +12,10 @@
     // "jsxFactory": "h"
     "baseUrl": ".",
     "paths": {
-      "@/tsxify": ["./src/common/tsxify/src"]
+      "@/tsxify": ["./src/common/tsxify/src"],
+      "@/common/*": ["./src/common/*"],
+      "@/server/*": ["./src/server/*"],
+      "@/client/*": ["./src/client/*"]
     }
   }
 }
