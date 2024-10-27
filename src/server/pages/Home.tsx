@@ -1,4 +1,4 @@
-import { h } from "../../common/h";
+import { React } from "@/tsxify";
 
 function Home() {
   return <p>Howdy mate!</p>;

@@ -1,4 +1,4 @@
-import { h } from "../common/h";
+import { React, html } from "@/tsxify";
 import { notFound, start, type Route } from "./http";
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
@@ -42,9 +42,11 @@ const routes: Route[] = [
     handler: ({ res }) => {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(
-        <Layout>
-          <Home />
-        </Layout>
+        html(
+          <Layout>
+            <Home />
+          </Layout>
+        )
       );
     },
   },

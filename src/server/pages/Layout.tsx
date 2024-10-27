@@ -1,4 +1,4 @@
-import { h } from "../../common/h";
+import { React } from "@/tsxify";
 
 function Layout(props: any) {
   return (
