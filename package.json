@@ -9,13 +9,15 @@
     "clean": "rm -rf ./dist/*",
     "bundle:server": "pnpm esbuild ./out/server/index.js --minify --bundle --outfile=./dist/server/index.js --platform=node",
     "bundle:client": "pnpm esbuild ./out/client/js/index.js --minify --bundle --outfile=./dist/client/js/index.bundle.js --platform=browser",
-    "dist": "pnpm clean && pnpm bundle:server && pnpm bundle:client"
+    "dist": "pnpm clean && pnpm bundle:server && pnpm bundle:client",
+    "start": "pnpm tsc && pnpm tsc-alias && pnpm dist && node dist/server/index.js"
   },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.7.5",
     "esbuild": "^0.24.0",
     "prettier": "^3.3.3",
+    "tsc-alias": "^1.8.10",
     "typescript": "^5.6.3"
   }
 }

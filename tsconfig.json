@@ -6,9 +6,13 @@
     "outDir": "./out",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    // "strict": true,
     "skipLibCheck": true,
     "jsx": "react",
-    "jsxFactory": "h"
+    // "jsxFactory": "h"
+    "baseUrl": ".",
+    "paths": {
+      "@/tsxify": ["./src/common/tsxify/src"]
+    }
   }
 }
