@@ -1,7 +1,7 @@
 import { React } from "@/tsxify";
 
 function Home() {
-  return <p>Howdy mate!</p>;
+  return <p>TSXify rocks! Right!?</p>;
 }
 
 export { Home };

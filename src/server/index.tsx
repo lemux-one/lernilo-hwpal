@@ -1,7 +1,7 @@
 import { React, html } from "@/tsxify";
-import { notFound, start, type Route } from "./http";
-import { Layout } from "./pages/Layout";
-import { Home } from "./pages/Home";
+import { notFound, internalError, start, type Route } from "@/server/http";
+import { Layout } from "@/server/pages/Layout";
+import { Home } from "@/server/pages/Home";
 import { readFile } from "node:fs";
 
 const MIME_TYPES: Record<string, string> = {
@@ -20,7 +20,7 @@ const routes: Route[] = [
       const lastDot = req.url?.lastIndexOf(".") ?? -1;
       const ext = req.url?.slice(lastDot + 1) ?? "";
       if (!ext) {
-        notFound(res);
+        notFound(res, `${req.url ?? ""} is not a static resource`);
         return;
       }
       const relativePath = req.url?.slice(ASSETS_PREFIX.length);
@@ -28,8 +28,7 @@ const routes: Route[] = [
       const path = __dirname + `/../client/${ext}/${relativePath}`;
       readFile(path, (err, data) => {
         if (err) {
-          res.writeHead(500, { "Content-Type": "text/plain" });
-          res.end("Error loading file");
+          internalError(res, `Error loading file ${path}`);
           return;
         }
         res.writeHead(200, { "Content-Type": MIME_TYPES[ext] });

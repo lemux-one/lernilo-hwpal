@@ -4,13 +4,13 @@ import {
   type IncomingMessage,
   type ServerResponse,
 } from "node:http";
-import { isBlank } from "../common/utils";
+import { isBlank } from "@/common/utils";
 
 function statusResponse(res: ServerResponse, code = 500) {
-  res.writeHead(404, {
+  res.writeHead(code, {
     "Content-Type": "text/plain",
   });
-  res.end(STATUS_CODES[404]);
+  res.end(STATUS_CODES[code]);
 }
 
 function notFound(res: ServerResponse, details = "") {
@@ -62,4 +62,4 @@ function start({ port, routes }: ServerParams) {
   });
 }
 
-export { start, Route, notFound };
+export { start, Route, notFound, internalError };
