@@ -5,6 +5,7 @@ import {
   type ServerResponse,
 } from "node:http";
 import { isBlank } from "@/common/utils";
+import { AddressInfo } from "node:net";
 
 function statusResponse(res: ServerResponse, code = 500) {
   res.writeHead(code, {
@@ -36,13 +37,15 @@ interface Route {
 interface ServerParams {
   port: number;
   routes: Route[];
+  host: string;
 }
 
-function start({ port, routes }: ServerParams) {
+function start({ port, routes, host }: ServerParams) {
   if (isBlank(routes)) {
     console.log("No routes given...");
   }
   const server = createServer((req, res) => {
+    console.info(`Requesting: ${req.method} ${req.url}`);
     for (const route of routes) {
       if (route.acceptsRequest(req)) {
         try {
@@ -57,8 +60,9 @@ function start({ port, routes }: ServerParams) {
     }
     notFound(res);
   });
-  server.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+  server.listen(port, host, () => {
+    const info = server.address() as AddressInfo;
+    console.log(`Server listening on ${info.address}:${info.port}`);
   });
 }
 

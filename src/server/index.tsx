@@ -24,13 +24,13 @@ const routes: Route[] = [
         return;
       }
       const relativePath = req.url?.slice(ASSETS_PREFIX.length);
-      console.log({ ext, relativePath, dir: __dirname });
       const path = __dirname + `/../client/${ext}/${relativePath}`;
       readFile(path, (err, data) => {
         if (err) {
           internalError(res, `Error loading file ${path}`);
           return;
         }
+        console.info(`Serving asset: ${path}`);
         res.writeHead(200, { "Content-Type": MIME_TYPES[ext] });
         res.end(data);
       });
@@ -52,5 +52,6 @@ const routes: Route[] = [
 ];
 
 const port = process.env.PORT ? Number(process.env.PORT) : 3333;
+const host = process.env.HOST ? process.env.HOST : "0.0.0.0";
 
-start({ port, routes });
+start({ port, routes, host });
